@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico" />
+
+    <meta name="robots" content="noindex, nofollow" />
+
+    <title>Twitter Share Link Generator</title>
+    <link
+      rel="stylesheet"
+      href="http://netdna.bootstrapcdn.com/bootswatch/3.1.1/lumen/bootstrap.min.css"
+    />
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9
+      ]><script src="../../assets/js/ie8-responsive-file-warning.js"></script
+    ><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header">
+        <h3 class="text-muted"><strong>Tweet This</strong> Generator</h3>
+      </div>
+
+      <div class="row">
+        <div class="row">
+          <div class="col-lg-6">
+            <h3 style="float:right;" id="tweet_text_count">280</h3>
+          </div>
+          <div class="col-lg-6">
+            <h3>Result</h3>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <form action="GET" id="generate_intent">
+            <div class="row">
+              <div class="col-lg-3">
+                <label
+                  ><input type="checkbox" id="add_hyperlink_check" /> Add
+                  Hyperlink</label
+                >
+              </div>
+              <div class="col-lg-9">
+                <textarea
+                  name="tweet"
+                  id="#tweet"
+                  cols="30"
+                  rows="5"
+                  class="form-control"
+                ></textarea>
+                <br />
+                <input
+                  type="submit"
+                  class="btn btn-lg btn-success"
+                  value="Make"
+                  style="float:right"
+                />
+                <a
+                  href="#"
+                  id="clear_form"
+                  class="btn btn-lg btn-primary"
+                  style="float:right; margin-right:5px;"
+                  >Clear</a
+                >
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-lg-6">
+          <textarea
+            id="output"
+            cols="30"
+            rows="5"
+            class="form-control"
+            readonly="readonly"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="footer"></div>
+    </div>
+    <!-- /container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script>
+      (function() {
+        var tweetForm = document.getElementById('generate_intent');
+        var tweetFormInput = tweetForm[1];
+        var add_hyperlink_check = document.getElementById(
+          'add_hyperlink_check'
+        );
+        var clearFormBtn = document.getElementById('clear_form');
+        var output = document.getElementById('output');
+        var intentURL = 'https://twitter.com/intent/tweet?status=';
+        var tweetCount = document.getElementById('tweet_text_count');
+        var maxTweetCount = 280;
+
+        // Set focus to text field on page load
+        window.addEventListener('load', function() {
+          tweetFormInput.focus();
+        });
+
+        // Submit text for generating
+        tweetForm.addEventListener(
+          'submit',
+          function(e) {
+            var tweet_text = tweetFormInput.value,
+              out_str = '';
+
+            if (add_hyperlink_check.checked) {
+              out_str =
+                "<a href='" +
+                intentURL +
+                encodeURI(tweet_text) +
+                "'>Tweet this</a>";
+            } else {
+              out_str = intentURL + encodeURI(tweet_text);
+            }
+
+            output.value = out_str;
+
+            e.preventDefault();
+            return false;
+          },
+          false
+        );
+
+        clearFormBtn.addEventListener('click', function(e) {
+          output.value = '';
+          tweetFormInput.value = '';
+          tweetForm[2].disabled = false;
+          updateStats();
+        });
+
+        output.addEventListener('click', function(e) {
+          this.focus();
+          this.select();
+        });
+
+        // Detect text change in text field and apply changes
+        function updateStats() {
+          window.setTimeout(function() {
+            var input_length = tweetFormInput.value.length;
+            var current_length = maxTweetCount - input_length;
+
+            if (current_length < 0) {
+              tweetForm[2].disabled = true;
+            } else {
+              tweetForm[2].disabled = false;
+            }
+
+            tweetCount.innerHTML = current_length;
+          }, 10);
+        }
+
+        function encodeURI(toEncode) {
+          return encodeURIComponent(toEncode)
+            .replace(/!/g, '%21')
+            .replace(/'/g, '%27')
+            .replace(/\(/g, '%28')
+            .replace(/\)/g, '%29')
+            .replace(/\*/g, '%2A');
+        }
+
+        tweetFormInput.onkeyup = updateStats;
+        tweetFormInput.onblur = updateStats;
+        tweetFormInput.addEventListener('paste', updateStats, false);
+      })();
+    </script>
+  </body>
+</html>
