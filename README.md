@@ -1,7 +1,11 @@
-# twitter-share-link-generator
+# Twitter Share Link Generator
 
-Links:
+https://twitter-share-link-generator.netlify.com/
 
-https://gist.github.com/aymanfarhat/9778396
+A quick and dirty way to generate a custom Twitter Share link.
 
-https://tutorials.botsfloor.com/step-by-step-creating-share-to-twitter-links-66c255f4d5e7
+There used to be a number of free tools/sites online that would do this for you in a pinch, but most seem to no longer work.
+
+So I found some existing code online, fiddled with it, and threw it up on this free site, so anyone could use it.
+
+(code references will be found on the site itself)

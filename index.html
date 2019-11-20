@@ -20,6 +20,16 @@
       body {
         padding: 0 15px;
       }
+
+      .footer {
+        margin: 35px 0;
+      }
+
+      .btn {
+        text-transform: none;
+        font-size: 2rem;
+        font-weight: normal;
+      }
     </style>
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
@@ -41,19 +51,20 @@
       </div>
 
       <div class="row">
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-lg-6">
             <h3 style="float:right;" id="tweet_text_count">280</h3>
           </div>
           <div class="col-lg-6">
             <h3>Result</h3>
           </div>
-        </div>
+        </div> -->
         <div class="col-lg-6">
+          <h3 style="float:right;" id="tweet_text_count">280</h3>
           <form action="GET" id="generate_intent">
             <div class="row">
               <div class="col-lg-3">
-                <label
+                <label style="display:none;"
                   ><input type="checkbox" id="add_hyperlink_check" /> Add
                   Hyperlink</label
                 >
@@ -70,14 +81,14 @@
                 <input
                   type="submit"
                   class="btn btn-lg btn-success"
-                  value="Make"
+                  value="Generate"
                   style="float:right"
                 />
                 <a
                   href="#"
                   id="clear_form"
                   class="btn btn-lg btn-primary"
-                  style="float:right; margin-right:5px;"
+                  style="float:right; margin-right:5px; display: none;"
                   >Clear</a
                 >
               </div>
@@ -85,6 +96,7 @@
           </form>
         </div>
         <div class="col-lg-6">
+          <br />
           <textarea
             id="output"
             cols="30"
@@ -95,7 +107,38 @@
         </div>
       </div>
 
-      <div class="footer"></div>
+      <!-- Sources to credit: 
+      
+      https://gist.github.com/aymanfarhat/9778396
+
+      https://tutorials.botsfloor.com/step-by-step-creating-share-to-twitter-links-66c255f4d5e7 -->
+
+      <div class="footer">
+        <h3>Project info:</h3>
+        <p>
+          This is a quick and dirty way to generate a custom Share Tweet link
+        </p>
+        <p>
+          There used to be a number of these resources online, but most seem to
+          be broken and abandoned
+        </p>
+        <p>
+          The majority of this code is taken from
+          <a href="https://gist.github.com/aymanfarhat/9778396"
+            >this GitHub Gist</a
+          >, with a few tweaks added to this project
+        </p>
+        <p>
+          Also,
+          <a
+            href="https://tutorials.botsfloor.com/step-by-step-creating-share-to-twitter-links-66c255f4d5e7"
+            >this tutorial</a
+          >
+          is a great reference to the rules in creating your own custom share
+          tweet link
+        </p>
+        <p>Huzzah!</p>
+      </div>
     </div>
     <!-- /container -->
 
